@@ -1,47 +1,41 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+export default {
+    data() {
+        return {
+            name: 'Saad',
+            status: true,
+            tasks: [
+                { id: 1, title: 'Task One', completed: false },
+                { id: 2, title: 'Task Two', completed: true },
+                { id: 3, title: 'Task Three', completed: false },
+                { id: 4, title: 'Task Four', completed: true },
+            ],
+            link: 'https://www.google.com',
+        };
+    },
+    methods: {
+        toggleStatus() {
+            this.status = !this.status;
+        }
+    }
+}
 </script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <h1>{{ name }}</h1>
+    <p v-if="status"> user is active</p>
+    <p v-else> user is inactive</p>
+    <button @click="toggleStatus">Toggle Status</button>
+    <button v-on:click="toggleStatus"> toggle status</button>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <br>
+    <br>
+    <h3>tasks</h3>
+    <ul>
+        <li v-for="task in tasks" :key="task.id">
+            {{ task.title }} - {{ task.completed }}
+        </li>
+    </ul>
+    <br>
+    <br>
+    <a v-bind:href="link">Google</a>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
